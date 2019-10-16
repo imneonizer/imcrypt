@@ -13,23 +13,22 @@ class ImCrypt:
     def __init__(self):
         if platform == "linux" or platform == "linux2":
             #import pwd
-            self.config_dir = f"/home/{str(user)}/.local/share/.imcrypt"
+            self.config_dir = "/home/{}/.local/share/.imcrypt".format(str(user))
 
         elif platform == "darwin":
             self.config_dir = '.imcrypt'
 
         elif platform == "win32":
-            self.config_dir = f"{str(os.environ['SYSTEMDRIVE'])}/Users/{str(user)}/AppData/Local/.imcrypt"
+            self.config_dir = "{}/Users/{}/AppData/Local/.imcrypt".format(str(os.environ['SYSTEMDRIVE']), str(user))
 
         else:
-            print('undefined os')
             self.config_dir = '.imcrypt'
 
         self.config_file = os.path.join(self.config_dir, 'imcrypt.key')
 
     @property
     def __version__(self):
-        return 1.0
+        return 1.2
 
     def private_key(self):
         key = self.validate_key(key='')
